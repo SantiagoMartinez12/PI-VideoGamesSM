@@ -8,6 +8,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // PRUEBA DE CAMBIOS EN GIT 
+    
   });
 };
