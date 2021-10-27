@@ -68,6 +68,26 @@ router.get('/', (req, res, next) => {
     })
     .catch(error => next(error))
 })
+router.get('/:id', async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        let videogame
+        if(typeof id === 'string' && id.length > 8) {
+            //es mio
+            videogame = await Videogame.findByPk(id)
+        } else {
+            //es de la api
+            response = await axios.get(`https://api.rawg.io/api/games/${id}?key=${KEY}`)
+            juego = response.data
+        }
+        //   `${BASE_URL}${id}?key=${API_KEY}`
+        //   https://api.rawg.io/api/games/
+        return res.send(juego)
+    } catch(error) {
+        next(error)
+    }
+})
+
 
 
 router.post('/', async (req, res, next) => {
