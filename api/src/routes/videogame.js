@@ -9,7 +9,7 @@ const { KEY } = process.env;
 const URL =`https://api.rawg.io/api/games?key=${KEY}`;
 //https://api.rawg.io/api/games?key=d069480d0b644c92b737ed4f5c65efe0&search={counter} 
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
     let name = req.query.name
     let videoGamePromiseApi
     let videoGamePrimiseDb 
@@ -25,24 +25,36 @@ router.get('/', (req, res, next) => {
             },
             order: [['name', 'ASC']]
         })
+        // ACA BUSCO POR NOMBRE EN API Y EN DB  
        } else {
-        videoGamePromiseApi = axios.get(`https://api.rawg.io/api/games?key=${KEY}`) //promesa
-        videoGamePrimiseDb = Videogame.findAll({ //promesa
-            include: GenreGame
-        })
-    }
+           // ACA BUSCO TODO; 
+           videoGamePrimiseDb = await Videogame.findAll({ //promesa
+               include: GenreGame
+           })
+           let arraydata = []
+       // videoGamePromiseApi = axios.get(`https://api.rawg.io/api/games?key=${KEY}`) //promesa
+       let page1 = (await axios.get(`https://api.rawg.io/api/games?key=${KEY}&page_size=40`)).data;
+       let page2 = (await axios.get(page1.next)).data;
+       let page3 = (await axios.get(page2.next)).data;
+ 
+    
+
     Promise.all([
-        videoGamePromiseApi,
-        videoGamePrimiseDb
+        page1,page2,page3,videoGamePrimiseDb
     ])
     .then((respuesta) => {
        
         const [
-             gameapi//respuesta de la API
-            , gameDb //respuesta de mi base de datos
-        ] = respuesta ///mis respuestas
-
-        let filteredVideoGameApi = gameapi.data.results.map((e) => {
+             page1,
+             page2,
+             page3,
+             gameDb//respuesta de la API
+             //respuesta de mi base de datos
+        ] = respuesta 
+        arraydata= [...page1.results,...page2.results,...page3.results]
+        ///mis respuestas
+       
+        let filteredVideoGameApi = arraydata.map((e) => {
             return { //saco los valores que no quiero enviar
                 id: e.id,
                 name: e.name,
@@ -64,9 +76,12 @@ router.get('/', (req, res, next) => {
         //orden para ponerlos de menor a mayor
         
         let allVideogames = [...gameDb, ...filteredVideoGameApi] //concateno
+
+    console.log(allVideogames.length)
         res.send(allVideogames)
     })
     .catch(error => next(error))
+}
 })
 router.get('/:id', async (req, res, next) => {
     try {
@@ -77,7 +92,7 @@ router.get('/:id', async (req, res, next) => {
             videogame = await Videogame.findByPk(id)
         } else {
             //es de la api
-            response = await axios.get(`https://api.rawg.io/api/games/${id}?key=${KEY}`)
+            response = await axios.get(`https://api.rawg.io/api/games/${id}?key=${KEY}`) 
             juego = response.data
         }
         //   `${BASE_URL}${id}?key=${API_KEY}`
