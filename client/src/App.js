@@ -1,9 +1,13 @@
 import './App.css';
+import Home from './componets/home';
+import SearchBar from './componets/searchBar';
+import AllVideoGames from './componets/videogames';
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Videogames</h1>
+      <SearchBar />
+      <AllVideoGames />
     </div>
   );
 }

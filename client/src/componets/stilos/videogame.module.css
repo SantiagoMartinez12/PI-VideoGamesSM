@@ -1,0 +1,12 @@
+
+.img {
+ width: 12rem;
+ height: 10rem;
+}
+.lala {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-between;
+}

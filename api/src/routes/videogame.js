@@ -4,17 +4,21 @@ const { Router } = require('express');
 const {Videogame, GenreGame} = require('../db')
 const {Op} = require('sequelize');
 const { default: axios } = require("axios");
+const db = require("../db");
 const router = Router();
 const { KEY } = process.env;
 const URL =`https://api.rawg.io/api/games?key=${KEY}`;
 //https://api.rawg.io/api/games?key=d069480d0b644c92b737ed4f5c65efe0&search={counter} 
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEMENTE ME TRAIGO TODO DE API Y DE BASE DE DATOS
     let name = req.query.name
+    console.log(name)
     let videoGamePromiseApi
     let videoGamePrimiseDb 
+    let data = []
     if(name) {
-        videoGamePromiseApi = axios.get(`https://api.rawg.io/api/games?search=${name}&key=${KEY}`)
+        console.log("entre en name")
+        videoGamePromiseApi = axios.get(`https://api.rawg.io/api/games?search=${name}&key=${KEY}&limit=100`)
         videoGamePrimiseDb = Videogame.findAll({
             include: GenreGame,
             where: {
@@ -25,8 +29,42 @@ router.get('/', async (req, res, next) => {
             },
             order: [['name', 'ASC']]
         })
+        Promise.all([
+            videoGamePromiseApi, 
+            videoGamePrimiseDb
+        ])
+        
+        .then((response => {
+            const [respuestaApi,respuestadb]= response
+           // data = [respuestadb,respuestaApi.results]
+            let respuestadb1 = respuestadb
+           let respuesta = respuestaApi.data.results
+          // console.log(respuesta.data.results)
+         let respu = respuesta.map((e) => {
+            return { //saco los valores que no quiero enviar
+                id: e.id,
+                name: e.name,
+                background_image: e.background_image,
+                rating: e.rating,
+                releaseDate: e.released,
+                genres: e.genres.map((genre) => {
+                    return {
+                        name: genre.name,
+                        id: genre.id,
+                    };
+                }),
+                platforms: e.platforms.map(
+                    (el) => el.platform.name
+                ),
+            };
+           })
+           
+           let arrayfinal = [respuestadb1,respu]
+        res.send([...respuestadb1,...respu])
+        }))
         // ACA BUSCO POR NOMBRE EN API Y EN DB  
        } else {
+           console.log("entre en todo")
            // ACA BUSCO TODO; 
            videoGamePrimiseDb = await Videogame.findAll({ //promesa
                include: GenreGame
@@ -83,8 +121,9 @@ router.get('/', async (req, res, next) => {
     .catch(error => next(error))
 }
 })
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {  // ACA BUSCO POR ID (PRIMERO EN BD LUEGO EN API)
     try {
+        console.log("entre en cualquier lado")
         const id = req.params.id;
         let videogame
         if(typeof id === 'string' && id.length > 8) {
@@ -105,19 +144,31 @@ router.get('/:id', async (req, res, next) => {
 
 
 
-router.post('/', async (req, res, next) => {
+router.post('/', async (req, res, next) => {      // creo videojuego y cargo id de genero para
     
   
 
-    const { name, description, platform} = req.body;
+    const { name, description, platform, background_image, relaseDate, rating, genre } = req.body;
+    try {
+        await GenreGame.findAll({where: {name:genre}})
+
+        await Videogame.create({ 
+            name,
+            description,
+            background_image,
+            relaseDate,
+            rating,
+            platform,
+        })
+        .then((response) => response.addGenreGame(genre))
+        .then((response) => {
+            return res.send(response)
+        })
+
+    } catch (err) {
+        next(err)
+    }
   
-    const newGame = await Videogame.create({ 
-        name,
-        description,
-        platform
-    });
-  
-    res.send(newGame); 
     
 });
 // 977matias15:51
