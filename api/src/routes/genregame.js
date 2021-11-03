@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
-const {GenreGame} = require('../db')
+const {GenreGame, Videogame} = require('../db')
+
 
 router.get('/', async (req, res, next) => {
     try {
@@ -20,6 +21,25 @@ router.post('/', (req, res, next) => {
     })
     .catch(error => next(error))
 })
+router.get('/search/:name', async (req, res, next) => {
+    
+    
+    try {
+   
+    const genero = req.params.name
+    console.log(genero)
+    generoFiltrado = await GenreGame.findByPk(genero)({
+    include: Videogame
+    })
+    res.send(generoFiltrado)
+  
+
+}catch(error) {
+    next(error)
+}
+
+})
+
 
 
 

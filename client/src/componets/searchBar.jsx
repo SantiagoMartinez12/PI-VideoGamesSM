@@ -7,16 +7,17 @@ export default function SearchBar() {
     function onSubmit(e) {
         e.preventDefault();
         dispatch(searchVideoGame(search))
-        console.log(search)
         
+        setSearch("")
     }
     function onInputChange(e) {
         e.preventDefault()
         setSearch(e.target.value)
+        
     }
     return <div>
         <form onSubmit={onSubmit}>
-            <input type="text" onChange={onInputChange} value={search}/>
+            <input type="text" onChange={onInputChange} value={search} placeholder="Search"/>
             <input type="submit" value="Buscar" />
         </form>
     </div>

@@ -1,0 +1,32 @@
+.ul{
+  display: inline-block;
+  padding:0;
+  margin:0;
+}
+.ul .li { display: inline;}
+
+.ul .li a{
+    color: beige;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius:5px;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    font-size: 18px;
+}
+
+.ul .li a.active{
+    background-color: #4CAF50;
+    color: beige;
+    border-radius: 5px;
+
+}
+.ul li a:hover:not(.active) {
+    background-color:gray;
+    color: black;
+}
+.nav{
+    padding-top: 30px;
+}

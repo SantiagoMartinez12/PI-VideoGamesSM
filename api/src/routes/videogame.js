@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
     console.log(name)
     let videoGamePromiseApi
     let videoGamePrimiseDb 
-    let data = []
+   
     if(name) {
         console.log("entre en name")
         videoGamePromiseApi = axios.get(`https://api.rawg.io/api/games?search=${name}&key=${KEY}&limit=100`)
@@ -38,6 +38,24 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
             const [respuestaApi,respuestadb]= response
            // data = [respuestadb,respuestaApi.results]
             let respuestadb1 = respuestadb
+            const filterdb = respuestadb1.map((e) => {
+                console.log("entre aqui")            
+                return {
+                     id: e.id,
+                    name: e.name,
+                     background_image: e.background_image,
+                    rating: parseFloat(e.rating),
+                    releaseDate: e.released,
+                    genres: e.genreGames.map((game) => {
+                        return {
+                            name: game.name,
+                            id: game.id
+                        }
+                    }),
+                    platforms: e.platform,
+                    createdInDb: e.createdInDb || true 
+            };
+            })
            let respuesta = respuestaApi.data.results
           // console.log(respuesta.data.results)
          let respu = respuesta.map((e) => {
@@ -59,8 +77,8 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
             };
            })
            
-           let arrayfinal = [respuestadb1,respu]
-        res.send([...respuestadb1,...respu])
+          
+        res.send([...filterdb,...respu])
         }))
         // ACA BUSCO POR NOMBRE EN API Y EN DB  
        } else {
@@ -69,6 +87,9 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
            videoGamePrimiseDb = await Videogame.findAll({ //promesa
                include: GenreGame
            })
+
+           
+           
            let arraydata = []
        // videoGamePromiseApi = axios.get(`https://api.rawg.io/api/games?key=${KEY}`) //promesa
        let page1 = (await axios.get(`https://api.rawg.io/api/games?key=${KEY}&page_size=40`)).data;
@@ -91,11 +112,30 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
         ] = respuesta 
         arraydata= [...page1.results,...page2.results,...page3.results]
         ///mis respuestas
+        const filterDb = gameDb
+        const filtradodb = filterDb.map((el) => {
+            return {
+                id: el.id,
+               name: el.name,
+                background_image: el.background_image,
+               rating: parseFloat(el.rating),
+               releaseDate: el.released,
+               genres: el.genreGames.map((game) => {
+                   return {
+                       name: game.name,
+                       id: game.id
+                   }
+               }),
+               platforms: el.platform,
+               createdInDb: el.createdInDb || true 
+       };
+        })
        
         let filteredVideoGameApi = arraydata.map((e) => {
             return { //saco los valores que no quiero enviar
                 id: e.id,
                 name: e.name,
+                description: e.description,
                 background_image: e.background_image,
                 rating: e.rating,
                 releaseDate: e.released,
@@ -113,7 +153,7 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
         )
         //orden para ponerlos de menor a mayor
         
-        let allVideogames = [...gameDb, ...filteredVideoGameApi] //concateno
+        let allVideogames = [...filtradodb, ...filteredVideoGameApi] //concateno
 
     console.log(allVideogames.length)
         res.send(allVideogames)
@@ -146,11 +186,17 @@ router.get('/:id', async (req, res, next) => {  // ACA BUSCO POR ID (PRIMERO EN 
 
 router.post('/', async (req, res, next) => {      // creo videojuego y cargo id de genero para
     
-  
-
-    const { name, description, platform, background_image, relaseDate, rating, genre } = req.body;
+  const { 
+      name, 
+      description, 
+      platform, 
+      background_image, 
+      relaseDate, 
+      rating, 
+      genres
+            } = req.body;
     try {
-        await GenreGame.findAll({where: {name:genre}})
+        await GenreGame.findAll({where: {name:genres}})
 
         await Videogame.create({ 
             name,
@@ -158,9 +204,9 @@ router.post('/', async (req, res, next) => {      // creo videojuego y cargo id 
             background_image,
             relaseDate,
             rating,
-            platform,
+            platform
         })
-        .then((response) => response.addGenreGame(genre))
+        .then((response) => response.addGenreGame([genres]))
         .then((response) => {
             return res.send(response)
         })

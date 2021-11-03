@@ -1,0 +1,2 @@
+export const ASCENDENTE = 'ASCENDENTE';
+export const DESCENDENTE = 'DESCENDENTE'
