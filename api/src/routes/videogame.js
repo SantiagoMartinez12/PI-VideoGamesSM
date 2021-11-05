@@ -12,7 +12,6 @@ const URL =`https://api.rawg.io/api/games?key=${KEY}`;
 
 router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEMENTE ME TRAIGO TODO DE API Y DE BASE DE DATOS
     let name = req.query.name
-    console.log(name)
     let videoGamePromiseApi
     let videoGamePrimiseDb 
    
@@ -47,17 +46,19 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
                     rating: parseFloat(e.rating),
                     releaseDate: e.released,
                     genres: e.genreGames.map((game) => {
+                        console.log("estoy aca")
                         return {
-                            name: game.name,
-                            id: game.id
+                            name:game.name,
+                            id:game.id
                         }
                     }),
                     platforms: e.platform,
                     createdInDb: e.createdInDb || true 
             };
             })
+            console.log(filterdb)
            let respuesta = respuestaApi.data.results
-          // console.log(respuesta.data.results)
+          
          let respu = respuesta.map((e) => {
             return { //saco los valores que no quiero enviar
                 id: e.id,
@@ -76,7 +77,7 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
                 ),
             };
            })
-           
+           console.log("estoy aqui")
           
         res.send([...filterdb,...respu])
         }))
@@ -121,10 +122,8 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
                rating: parseFloat(el.rating),
                releaseDate: el.released,
                genres: el.genreGames.map((game) => {
-                   return {
-                       name: game.name,
-                       id: game.id
-                   }
+                   return  game.name
+                  
                }),
                platforms: el.platform,
                createdInDb: el.createdInDb || true 
@@ -140,11 +139,10 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
                 rating: e.rating,
                 releaseDate: e.released,
                 genres: e.genres.map((genre) => {
-                    return {
-                        name: genre.name,
-                        id: genre.id,
-                    };
-                }),
+                    return genre.name
+                       
+                    }
+            ),
                 platforms: e.platforms.map(
                     (el) => el.platform.name
                 ),
@@ -155,7 +153,7 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
         
         let allVideogames = [...filtradodb, ...filteredVideoGameApi] //concateno
 
-    console.log(allVideogames.length)
+    
         res.send(allVideogames)
     })
     .catch(error => next(error))
@@ -165,18 +163,62 @@ router.get('/:id', async (req, res, next) => {  // ACA BUSCO POR ID (PRIMERO EN 
     try {
         console.log("entre en cualquier lado")
         const id = req.params.id;
-        let videogame
-        if(typeof id === 'string' && id.length > 8) {
+        
+        if(id.length > 8) {
             //es mio
-            videogame = await Videogame.findByPk(id)
+          let  videogame = await Videogame.findByPk(
+            id,
+            { include: GenreGame },
+            
+          );
+         
+         let videogameData = videogame.dataValues
+         filterData = {
+                 name: videogameData.name,
+                 id: videogameData.id,
+                 background_image: videogameData.background_image,
+                 description: videogameData.description,
+                 rating: videogameData.rating,
+                 released: videogameData.released,
+                 genres: videogameData.genreGames.map((genre) => {
+                    return {
+                        name: genre.name,
+                        id: genre.id,
+                    };
+                }),
+                 platforms: videogameData.platforms
+                
+             }
+         
+         
+            return res.send(filterData)
         } else {
             //es de la api
             response = await axios.get(`https://api.rawg.io/api/games/${id}?key=${KEY}`) 
-            juego = response.data
+            //https://api.rawg.io/api/games/3498?key=d069480d0b644c92b737ed4f5c65efe0 
+          let  gameData = response.data
+            
+
+            let juego = {
+                id: gameData.id,
+                name: gameData.name,
+                background_image: gameData.background_image,
+                rating: gameData.rating,
+                description: gameData.description,
+                released: gameData.released,
+                platforms: gameData.platforms.map((disp) => disp.platform.name),
+                genres: gameData.genres.map((genre) => {
+                    return {
+                        name: genre.name,
+                        id: genre.id,
+                    };
+                }),
+            };
+            return res.send(juego)
         }
         //   `${BASE_URL}${id}?key=${API_KEY}`
         //   https://api.rawg.io/api/games/
-        return res.send(juego)
+        
     } catch(error) {
         next(error)
     }
@@ -189,27 +231,28 @@ router.post('/', async (req, res, next) => {      // creo videojuego y cargo id 
   const { 
       name, 
       description, 
-      platform, 
+      platforms, 
       background_image, 
-      relaseDate, 
+      released, 
       rating, 
       genres
             } = req.body;
     try {
-        await GenreGame.findAll({where: {name:genres}})
+       const generoDb = await GenreGame.findAll({where: {name:genres}})
+       
 
-        await Videogame.create({ 
+      const videoGames =  await Videogame.create({ 
             name,
             description,
             background_image,
-            relaseDate,
+            released,
             rating,
-            platform
+            platforms
         })
-        .then((response) => response.addGenreGame([genres]))
-        .then((response) => {
-            return res.send(response)
-        })
+            videoGames.addGenreGame(generoDb)
+        
+            return res.send(videoGames)
+      
 
     } catch (err) {
         next(err)

@@ -1,11 +1,16 @@
 import React from "react";
 import {Link} from "react-router-dom"
+import styles from "./stilos/landing.module.css"
 
 export default function LandingPage(){
     return <div>
-       <h1> Welcome </h1>
+        <div className={"style.divWel"}>
+       <h1 className={styles.h1}> SEARCH YOUR FAVORITE GAME </h1>
+       </div>
+       <div>
        <Link to="/home">
-           <button>Ingresar</button>
+           <button classname={styles.button}>Get Started</button>
        </Link>
+    </div>
     </div>
 }

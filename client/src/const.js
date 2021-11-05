@@ -1,2 +1,4 @@
 export const ASCENDENTE = 'ASCENDENTE';
 export const DESCENDENTE = 'DESCENDENTE'
+export const RATINGMENOS = 'RATINGMENOS'
+export const RATINGMAS = 'RATINGMAS'

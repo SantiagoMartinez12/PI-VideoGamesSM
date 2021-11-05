@@ -1,5 +1,5 @@
-import { FETCH_VIDEOGAME, FIND_GAME , GET_GENRES, FILTER_GENRE, FILTER_DB_API,FILTER_SORT} from "../actions"
-import {ASCENDENTE,DESCENDENTE} from "../../const"
+import { FETCH_VIDEOGAME, FIND_GAME , GET_GENRES, FILTER_GENRE, FILTER_DB_API,FILTER_SORT, FILTER_SORT_RATING}  from "../actions"
+import {ASCENDENTE,DESCENDENTE, RATINGMAS, RATINGMENOS} from "../../const"
 
 const initialState = {
     videoGames : [],
@@ -17,6 +17,7 @@ export default function reducer( state = initialState, action) {
                 filterVideoGames:action.payload.data
             }
             case FIND_GAME: 
+            console.log("aqui entre")
                 return {
                 ...state,
                 filterVideoGames:action.payload.data,
@@ -26,12 +27,15 @@ export default function reducer( state = initialState, action) {
                 ...state,
                 genreGame: action.payload.data
             }
+            case 'POST_VG':
+                return {
+                    ...state
+                }
             case FILTER_GENRE:
                 const allVideogames = state.videoGames
                     // filtro primero el array de objetos, segundo mapeo generos tercero
                     // pregunto si incluye ese genero que traigo por payload... 
-                const filtergenre = allVideogames.filter((el) => el.genres.map((el) => {
-                    return el.name} ).includes(action.payload)) 
+                const filtergenre = allVideogames.filter((el) => el.genres.includes(action.payload)) 
                 console.log(filtergenre)
                 return {    
                         ...state,
@@ -58,11 +62,30 @@ export default function reducer( state = initialState, action) {
                     }
                     return 0;
                 })
-    
                 return {
                     ...state,
                     filterVideoGames: orderedVideo
                 }
+                case FILTER_SORT_RATING:
+                    let orderedVGRating = [...state.videoGames]
+
+                let orderedVideo1 = orderedVGRating.sort((a, b) => {
+                    if (a.rating < b.rating) {
+                        return action.payload === RATINGMAS ? -1 : 1;
+                    }
+                    if (a.rating > b.rating) {
+                        return action.payload === RATINGMAS ? 1 : -1;
+                    }
+                    return 0;
+                })
+                return {
+                    ...state,
+                    filterVideoGames: orderedVideo1
+                }
+                    
+    
+
+
                 /*
                 let orderVideoGame = [...state.videoGames]
                 let lpm = orderVideoGame.sort((a, b) =>{

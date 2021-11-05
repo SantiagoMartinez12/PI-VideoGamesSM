@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       
     },
-    relaseDate: {
+    released: {
       type: DataTypes.STRING,
      
       validate: {
@@ -33,9 +33,9 @@ module.exports = (sequelize) => {
     rating: {
       type: DataTypes.DECIMAL,
     },
-    platform: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    platforms: {
+      type: DataTypes.ARRAY(DataTypes.TEXT),
+            allowNull: false,
     },
     createdInDb: {
       type: DataTypes.BOOLEAN,

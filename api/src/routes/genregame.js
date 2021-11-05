@@ -23,7 +23,7 @@ router.post('/', (req, res, next) => {
 })
 router.get('/search/:name', async (req, res, next) => {
     
-    
+    console.log("aqui")
     try {
    
     const genero = req.params.name

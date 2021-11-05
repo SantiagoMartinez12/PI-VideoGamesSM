@@ -6,6 +6,7 @@ export const FILTER_BY_STATUS = 'FILTER_BY_STATUS'
 export const FILTER_GENRE = 'FILTER_GENRE'
 export const FILTER_DB_API = 'FILTER_DB_API'
 export const FILTER_SORT = 'FILTER_SORT'
+export const FILTER_SORT_RATING = 'FILTER_SORT_RATING'
 
 
 /*
@@ -29,6 +30,7 @@ export function fetchVideoGame() {
 }
 export function searchVideoGame(search) {
     return function(dispatch) {
+        console.log(search)
         axios.get('http://localhost:3001/videogame?name=' + search)
         .then((game) => {
             dispatch({
@@ -36,10 +38,14 @@ export function searchVideoGame(search) {
                 payload: game
             })
         })
-        .catch((error) => {
-            console.log(error)
-    })
+        
 }
+}
+export function postVideoGame(payload){
+    return async function(dispatch) {
+        const response = await axios.post('http://localhost:3001/videogame', payload)
+        return response 
+    }
 }
 
 export function getGenres(){
@@ -73,6 +79,14 @@ export function filterSort(payload){
         payload
     }
 }
+export function filterSortRating(payload){
+    console.log(payload)
+    return {
+        type:FILTER_SORT_RATING,
+        payload
+    }
+}
+
 
 
 

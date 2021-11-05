@@ -1,0 +1,8 @@
+.selectG[multiple] {
+    height: 1.5em;
+    vertical-align: top;
+  }
+  .selectG[multiple]:focus,
+  .selectG[multiple]:active {
+    height: auto;
+  }

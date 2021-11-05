@@ -3,12 +3,12 @@ import React from "react"
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import {fetchVideoGame , getGenres, filterGenre, filterGameAPIorDB, filterSort} from '../store/actions/index'
+import {fetchVideoGame , getGenres, filterGenre, filterGameAPIorDB, filterSort, filterSortRating} from '../store/actions/index'
 import  Card from './card'
 import FilterGenre from "./filtradoGenre"
 import Paginado from "./paginado"
 import SearchBar from "./searchBar"
-import {ASCENDENTE,DESCENDENTE} from "../const"
+import {ASCENDENTE,DESCENDENTE,RATINGMAS,RATINGMENOS } from "../const"
 
 
 
@@ -44,7 +44,7 @@ export default function Home(){
 
     }
     function handleFilterByGenre(e){
-        console.log("entre")
+        
         dispatch(filterGenre(e.target.value))
         }
     function handleFilter(e){
@@ -54,6 +54,9 @@ export default function Home(){
     function handleFilterSort(e){
         dispatch(filterSort(e.target.value))
     }    
+    function handleFilterSortRating(e){
+        dispatch(filterSortRating(e.target.value))
+    }    
  
     return <div>
      <Link to="/videogame">Crear Video Juego</Link>
@@ -61,10 +64,19 @@ export default function Home(){
      <button onClick={e => {handleClick(e)}}>Volver a cargar videojuegos</button>
      <div>
          <SearchBar />
+         <label> A-Z | Z-A :
          <select onChange={e => handleFilterSort(e)}>
              <option value ={ASCENDENTE}>Ascendente</option>
              <option value={DESCENDENTE}>Descendente</option>
          </select>
+         </label>
+         <label>Rating :
+         <select onChange={e => handleFilterSortRating(e)}>
+             <option value ={RATINGMAS}>Rating +</option>
+             <option value={RATINGMENOS}>Rating -</option>
+         </select>
+         </label>
+         <label> Genres :
          <select onChange={e => handleFilterByGenre(e)}>
         {
             genres?.map((el =>{
@@ -75,26 +87,34 @@ export default function Home(){
         }
 
         </select>
-      
+        </label>
+        <label> Game DB or API :
          <select onChange={e => handleFilter(e)}>
              <option value='all'>Todos</option>
              <option value='created'>Creados</option>
              <option value='api'>Api</option>
             
          </select>
+         </label>
          <Paginado 
          gamesPerPage={gamesPerPage}
          allVideogames = {allVideogames.length}
          paginado = {paginado}
          />
+         <div>
          {
+            
            currentGame?.map(el => {
+               
                return(
+                   
                <Card id={el.id} key={el.id} name={el.name} image={el.background_image} genre={el.genres} /> 
                )
+               
            })
            
          }
+         </div>
      </div>
     </div>
 }
