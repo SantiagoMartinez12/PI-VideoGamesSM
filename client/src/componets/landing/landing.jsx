@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom"
-import styles from "./stilos/landing.module.css"
+import styles from "./landing.module.css"
 
 export default function LandingPage(){
     const style = {

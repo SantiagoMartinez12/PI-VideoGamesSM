@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Paginado from './paginado';
-import styles from './stilos/card.module.css'
+import Paginado from '../paginado/paginado';
+import styles from './card.module.css'
 
 
 

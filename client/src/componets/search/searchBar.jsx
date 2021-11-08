@@ -1,7 +1,7 @@
 import {useState} from 'react';
-import { searchVideoGame } from '../store/actions';
+import { searchVideoGame } from '../../store/actions';
 import { useDispatch } from 'react-redux';
-import styles from "./stilos/search.module.css"
+import styles from "./search.module.css"
 export default function SearchBar() {
     const [search, setSearch] = useState('')
     let dispatch = useDispatch()

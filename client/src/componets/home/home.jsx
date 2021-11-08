@@ -3,12 +3,12 @@ import React from "react"
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import {fetchVideoGame , getGenres, filterGenre, filterGameAPIorDB, filterSort, filterSortRating} from '../store/actions/index'
-import  Card from './card'
-import Paginado from "./paginado"
-import SearchBar from "./searchBar"
-import {ASCENDENTE,DESCENDENTE,RATINGMAS,RATINGMENOS } from "../const"
-import styles from './stilos/home.module.css'
+import {fetchVideoGame , getGenres, filterGenre, filterGameAPIorDB, filterSort, filterSortRating} from '../../store/actions/index'
+import  Card from '../card/card'
+import Paginado from "../paginado/paginado"
+import SearchBar from "../search/searchBar"
+import {ASCENDENTE,DESCENDENTE,RATINGMAS,RATINGMENOS } from "../../const"
+import styles from './home.module.css'
 
 
 

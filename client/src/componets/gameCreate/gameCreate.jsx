@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from "react-router-dom";
-import { getGenres, postVideoGame } from '../store/actions';
-import styles from './stilos/gameCreate.module.css'
+import { getGenres, postVideoGame } from '../../store/actions';
+import styles from './gameCreate.module.css'
 
 
 export default function GameCreate (){

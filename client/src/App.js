@@ -1,12 +1,12 @@
 import './App.css';
-import Home from './componets/home';
-import GameDetail from './componets/gameDetail'
+import Home from './componets/home/home';
+import GameDetail from './componets/gameDetail/gameDetail'
 import { Route, Switch } from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { fetchVideoGame, getGenres } from './store/actions';
-import LandingPage from './componets/landing';
-import GameCreate from './componets/gameCreate';
+import LandingPage from './componets/landing/landing';
+import GameCreate from './componets/gameCreate/gameCreate';
 
 
 
