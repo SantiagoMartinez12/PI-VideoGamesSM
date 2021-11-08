@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
     let videoGamePrimiseDb 
    
     if(name) {
-        console.log("entre en name")
+        
         videoGamePromiseApi = axios.get(`https://api.rawg.io/api/games?search=${name}&key=${KEY}&limit=100`)
         videoGamePrimiseDb = Videogame.findAll({
             include: GenreGame,
@@ -38,7 +38,7 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
            // data = [respuestadb,respuestaApi.results]
             let respuestadb1 = respuestadb
             const filterdb = respuestadb1.map((e) => {
-                console.log("entre aqui")            
+                         
                 return {
                      id: e.id,
                     name: e.name,
@@ -46,7 +46,7 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
                     rating: parseFloat(e.rating),
                     releaseDate: e.released,
                     genres: e.genreGames.map((game) => {
-                        console.log("estoy aca")
+                       
                         return {
                             name:game.name,
                             id:game.id
@@ -56,7 +56,7 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
                     createdInDb: e.createdInDb || true 
             };
             })
-            console.log(filterdb)
+           
            let respuesta = respuestaApi.data.results
           
          let respu = respuesta.map((e) => {
@@ -77,13 +77,13 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
                 ),
             };
            })
-           console.log("estoy aqui")
+          
           
         res.send([...filterdb,...respu])
         }))
         // ACA BUSCO POR NOMBRE EN API Y EN DB  
        } else {
-           console.log("entre en todo")
+           
            // ACA BUSCO TODO; 
            videoGamePrimiseDb = await Videogame.findAll({ //promesa
                include: GenreGame
@@ -161,7 +161,7 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
 })
 router.get('/:id', async (req, res, next) => {  // ACA BUSCO POR ID (PRIMERO EN BD LUEGO EN API)
     try {
-        console.log("entre en cualquier lado")
+        
         const id = req.params.id;
         
         if(id.length > 8) {

@@ -6,7 +6,7 @@ const {GenreGame, Videogame} = require('../db')
 router.get('/', async (req, res, next) => {
     try {
         const genero = await GenreGame.findAll()
-        console.log(genero)
+        
         res.send(genero)
     } catch(error) {
         next(error)
@@ -24,11 +24,11 @@ router.post('/', (req, res, next) => {
 })
 router.get('/search/:name', async (req, res, next) => {
     
-    console.log("aqui")
+    
     try {
    
     const genero = req.params.name
-    console.log(genero)
+    
     generoFiltrado = await GenreGame.findByPk(genero)({
     include: Videogame
     })

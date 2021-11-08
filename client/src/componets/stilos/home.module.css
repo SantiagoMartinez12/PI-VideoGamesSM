@@ -20,8 +20,9 @@
     backdrop-filter: blur(10px);
     border-radius:20px;
     width: 1100px;
-    margin-left: 280px; 
+    margin-left: 340px; 
     margin-top: 40px;
+    margin-right: 340px;
 }
 .prueba{
     margin: center;

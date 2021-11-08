@@ -5,12 +5,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import {fetchVideoGame , getGenres, filterGenre, filterGameAPIorDB, filterSort, filterSortRating} from '../store/actions/index'
 import  Card from './card'
-import FilterGenre from "./filtradoGenre"
 import Paginado from "./paginado"
 import SearchBar from "./searchBar"
 import {ASCENDENTE,DESCENDENTE,RATINGMAS,RATINGMENOS } from "../const"
 import styles from './stilos/home.module.css'
-import Loading from "./loading"
+
 
 
 

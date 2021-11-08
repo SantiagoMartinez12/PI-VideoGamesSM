@@ -133,8 +133,10 @@ export default function GameCreate (){
                 </div>
                 <div className={styles.description}>
                     <label>Description:</label>
-                        <input 
-                        type="text" 
+                        <textarea
+                        row="10"
+                        cols="50" 
+                        type="textarea" 
                         value={input.description}
                         name="description" 
                         onChange={(e)=>handleChange(e)}
