@@ -15,17 +15,20 @@
     border: 1px solid #ddd;
     margin: 0 4px;
     font-size: 18px;
+    backdrop-filter: blur(20px);
 }
 
 .ul .li a.active{
     background-color: #4CAF50;
+    backdrop-filter: blur(20px);
     color: beige;
     border-radius: 5px;
 
 }
 .ul li a:hover:not(.active) {
-    background-color:gray;
-    color: black;
+    background-color:rgb(5, 5, 5);
+    color: white;
+
 }
 .nav{
     padding-top: 30px;

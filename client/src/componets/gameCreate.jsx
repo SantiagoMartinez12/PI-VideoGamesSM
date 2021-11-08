@@ -8,7 +8,7 @@ import styles from './stilos/gameCreate.module.css'
 
 export default function GameCreate (){
     const dispatch = useDispatch()
-    const genres1 = useSelector((state) => state.genreGame)
+    const genres = useSelector((state) => state.genreGame)
     const history = useHistory()
 
     const [input, setInput] = useState({
@@ -21,10 +21,44 @@ export default function GameCreate (){
         genres:[]
 
     })
+    const [errors, setErrors] = useState({})
 
     useEffect (() => {
         dispatch(getGenres())
     },[])
+    function handleDelete(el){
+        setInput({
+            ...input,
+            genres: input.genres.filter( occ => occ !== el)
+        })
+    }
+    function handleDeletePlat(el){
+        setInput({
+            ...input,
+            platforms: input.platforms.filter( occ => occ !== el)
+        })
+    }
+
+        function validate (input){
+            let errors = {};
+          if(!input.name) {
+              errors.name = "Require Name"
+          }
+          else if (!input.description){
+              errors.description = "Require Description"
+          }
+          else if(input.rating < 0 || input.rating > 5)
+          errors.rating = "Rating from 0 to 5 "
+          else if (!input.platforms){
+            errors.platforms = "Require at least one platform"
+        }
+        else if (!input.genres){
+            errors.genres = "Require at least one genre"
+        }
+
+          return errors
+            
+        }
 
         function  handleChange(e){
             setInput({
@@ -32,24 +66,39 @@ export default function GameCreate (){
                 [e.target.name]: e.target.value
 
             })
+            setErrors(validate({
+                ...input,
+                [e.target.name]: e.target.value
+            }))
+
         }
         function handleSelection(e){
             setInput({
                 ...input,
                 genres : [...input.genres, e.target.value]
             })
+            setErrors(validate({
+                ...input,
+                [e.target.name]: e.target.value
+            }))
         
         }
-        function handleCheck(e){
-            if(e.target.checked){
-                setInput({
+        function handleSelectionP(e){
+            setInput({
                 ...input,
-                platforms: [...input.platforms,e.target.value ]
-                })
-            }
+                platforms : [...input.platforms, e.target.value]
+            })
+            setErrors(validate({
+                ...input,
+                [e.target.name]: e.target.value
+            }))
+
         }
+     
+
         function handleSubmit(e){
             e.preventDefault()
+         
             console.log(input)
             dispatch(postVideoGame(input))
             alert("Videogame created")
@@ -63,13 +112,15 @@ export default function GameCreate (){
                 genres:[]
                     })
           history.push("/home")          
-        }
+        
+    }
         
     return(
-        <div>
-            <Link to="/home"><button>Go Back</button></Link>
-            <h1>Create your Video Game</h1>
-            <form  onSubmit={(e)=>handleSubmit(e)}>
+        <div className={styles.page}>
+            <div className={styles.divCreate}>
+            <Link to="/home"><button classname={styles.button1}>Go Back</button></Link>
+            <form  onSubmit={(e)=>handleSubmit(e)} classname={styles.forms}>
+            <h1 className={styles.tittle}>Create your Video Game</h1>
                 <div>
                     <label>Name:</label>
                         <input 
@@ -77,27 +128,33 @@ export default function GameCreate (){
                         value={input.name}
                         name="name"
                         onChange={(e)=>handleChange(e)}
-                        />
+                        required
+                        />{errors.name && (<p>{errors.name}</p>)}
                 </div>
-                <div>
+                <div className={styles.description}>
                     <label>Description:</label>
                         <input 
                         type="text" 
                         value={input.description}
                         name="description" 
                         onChange={(e)=>handleChange(e)}
+                        required
                         />
+                        {errors.description && (
+                            <p>{errors.description}</p>
+                        )}
                 </div>
-                <div>
+                <div  className={styles.image}>
                     <label>Image:</label>
                     <input 
                     type="text"
                     value={input.background_image}
                     name="background_image" 
                     onChange={(e)=>handleChange(e)}
+                    required
                     />
                 </div>
-                <div>
+                <div className={styles.rating}>
                     <label>Rating:</label>
                     <input 
                     type="number"
@@ -107,88 +164,40 @@ export default function GameCreate (){
                     min={0.1}
                     max={5}
                     onChange={(e)=>handleChange(e)}
-                    />
+                    required
+                    />  {errors.rating && (
+                        <p>{errors.rating}</p>
+                    )}
                 </div>
-                <div>
+                <div  className={styles.released}>
                     <label>Released</label>
                     <input
                     type="date"
                     name="released"
                     onChange={(e)=>handleChange(e)}
+                    required
                     />
                 </div>
-                <div>
-                    <label>Platforms:</label>
-                    <label>PC
-                    <input 
-                    type="checkbox"
-                    name="PC"
-                    value="PC"
-                    onChange={(e)=>handleCheck(e)}
-                    /></label>
+                <div className={styles.platforms}>
+                    <label>Platforms:
+                        <select className={styles.selectG} multiple onChange={(e) => handleSelectionP(e)} required>
+                            <option value="PS5">PS5</option>
+                            <option value="PS4">PS4</option>
+                            <option value="PS3">PS3</option>
+                            <option value="Xbox S/X">Xbox S/X</option>
+                            <option value="Xbox One">Xbox One</option>
+                            <option value="Xbox 360">Xbox 360</option>
+                            <option value="Nintendo">Nintendo</option>
+                            <option value="Wii">WII</option>
+                        </select>
+                    </label>
                     
-                    <label>PS5
-                    <input 
-                    type="checkbox"
-                    name="PS5"
-                    value="PS5"
-                    onChange={(e)=>handleCheck(e)}
-                    /></label>
-                    <label>PS4
-                    <input 
-                    type="checkbox"
-                    name="PS4"
-                    value="PS4"
-                    onChange={(e)=>handleCheck(e)}
-                    /></label>
-                      <label>PS3
-                    <input 
-                    type="checkbox"
-                    name="PS3"
-                    value="PS3"
-                    onChange={(e)=>handleCheck(e)}
-                    /></label>
-                    <label>Xbox Serie X/S
-                    <input 
-                    type="checkbox"
-                    name="Xbox Serie"
-                    value="Xbox Serie"
-                    onChange={(e)=>handleCheck(e)}
-                    /></label>
-                      <label>Xbox One
-                    <input 
-                    type="checkbox"
-                    name="Xbox One"
-                    value="Xbox One"
-                    onChange={(e)=>handleCheck(e)}
-                    /></label>
-                      <label>Xbox 360
-                    <input 
-                    type="checkbox"
-                    name="Xbox 360"
-                    value="Xbox 360"
-                    onChange={(e)=>handleCheck(e)}
-                    /></label>
-                      <label>WII
-                    <input 
-                    type="checkbox"
-                    name="WII"
-                    value="WII"
-                    onChange={(e)=>handleCheck(e)}
-                    /></label>
-                      <label>Nintendo
-                    <input 
-                    type="checkbox"
-                    name="Nintendo"
-                    value="Nintendo"
-                    onChange={(e)=>handleCheck(e)}
-                    /></label>
                 </div>
-                <div>
+                <div className={styles.genres}>
                     <label>Genres:
-                    <select className={styles.selectG} multiple onChange={(e)=>handleSelection(e)}>
+                    <select className={styles.selectG} multiple onChange={(e)=>handleSelection(e)} required>
                         {
-                           genres1?.map((el =>{
+                           genres?.map((el =>{
                             return(
                                 <option value={el.name}>{el.name}</option>
                             )
@@ -197,9 +206,45 @@ export default function GameCreate (){
                     </select>
                     </label>
                 </div>
-                <button type="submit">Create Your Game</button>
+                <button type="submit" className={styles.sub}>Create Your Game</button>
                 
+            <div  className={styles.checked}>
+                <h4>platforms selected:</h4>
+            {
+                input.platforms.map(el =>
+                    <div>
+                        <p>{el}</p>
+                        <button onClick={(e)=> handleDeletePlat(el)} classname={styles.but1}>X</button>
+                        </div>)
+            }
+                <h4>Genres selected:</h4>
+            {
+            input.genres.map(el => 
+                <div>
+                    <p>{el}</p>
+                    <button onClick={(e)=> handleDelete(el)}backgroundColor="white">X</button>
+                </div>)
+            }
+                </div>
             </form>
         </div>
-    )   
-}
+        
+            
+        </div>
+           /* 
+        <div className={styles.previ}>
+                <div className={styles.previsualizacion}></div>
+                    <div className={styles.nameprev}>{input.name}</div>
+                    <div className={styles.descriptionprev}>
+                        <p className={styles.pr}>Description:   {input?.description}</p>
+                       
+                        <img src={input?.background_image}  className={styles.imagess}/>
+                        <p className={styles.ratingprev}>rating:  {input?.rating}</p>
+                        </div>
+
+            </div>
+
+           */
+      
+      )   
+    }

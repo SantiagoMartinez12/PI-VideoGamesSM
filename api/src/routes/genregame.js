@@ -6,6 +6,7 @@ const {GenreGame, Videogame} = require('../db')
 router.get('/', async (req, res, next) => {
     try {
         const genero = await GenreGame.findAll()
+        console.log(genero)
         res.send(genero)
     } catch(error) {
         next(error)

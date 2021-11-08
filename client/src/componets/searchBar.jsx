@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import { searchVideoGame } from '../store/actions';
 import { useDispatch } from 'react-redux';
+import styles from "./stilos/search.module.css"
 export default function SearchBar() {
     const [search, setSearch] = useState('')
     let dispatch = useDispatch()
@@ -17,8 +18,8 @@ export default function SearchBar() {
     }
     return <div>
         <form onSubmit={onSubmit}>
-            <input type="text" onChange={onInputChange} value={search} placeholder="Search"/>
-            <input type="submit" value="Buscar" />
+            <input type="text" onChange={onInputChange} value={search} placeholder="         Insert name " classname={styles.text}/>
+            <input type="submit" value="Buscar" classname={styles.boton}/>
         </form>
     </div>
 }

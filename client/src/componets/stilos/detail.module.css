@@ -1,0 +1,101 @@
+.divc{
+    position: fixed;
+    display: flex;
+
+}
+.conte{
+    margin-right: 100px;
+    margin-left: 100px;
+    margin-bottom: 100px;
+    margin-top: 60px;
+    height: 700px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.356);
+    width: 1700px;
+    border: 1px solid black;
+    border-radius: 20px;
+    
+}
+.butt{
+    position: fixed;
+    display: flex;
+    height:30px;
+    width:30px;
+  margin-top:20px;
+  margin-right: 1800px;
+}
+.names{
+    font-size:30px;
+    margin: auto;
+    padding-top: 20px;
+}
+.image{
+    height:400px;
+    width: 500px;
+}
+.contimage{
+    display: flex;
+    margin-left: 1100px;
+    width:500px;
+    height: 450px;
+    position: fixed;
+    margin-right: 200px;
+
+}
+.descrip{
+display: flex;
+margin-bottom: 500px;
+position: fixed;
+margin-top: 50px;
+text-align: left;
+padding-left:50px
+}
+.description{
+    width:1000px;
+    height:300px;
+    font-size:1.3rem
+}
+.genre{
+    position: fixed;
+    display: flex;
+    margin-top: 450px;
+    font-size:1.3rem;
+    width:300px;
+    height:100px;
+    padding-left: 50px;
+    
+}
+.platform{
+    position: fixed;
+    display: flex;
+    margin-top: 450px;
+    margin-left: 500px;
+    font-size:1.3rem;
+    width:300px;
+
+}
+.released{
+    position: fixed;
+    display: flex;
+    width:250px;
+    margin-top: 500px;
+    margin-left: 950px;
+    font-size:1.3rem;
+}
+.rating{
+    position: fixed;
+    display: flex;
+    margin-top: 500px;
+    margin-left: 1300px;
+    font-size:1.3rem;
+}
+
+.loading{
+    font-size: 3rem;
+    font-family:Arial, Helvetica, sans-serif;
+    color: white;
+    margin-top: 300px;
+
+
+}
+

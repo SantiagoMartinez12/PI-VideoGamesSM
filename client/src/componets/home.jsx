@@ -9,7 +9,8 @@ import FilterGenre from "./filtradoGenre"
 import Paginado from "./paginado"
 import SearchBar from "./searchBar"
 import {ASCENDENTE,DESCENDENTE,RATINGMAS,RATINGMENOS } from "../const"
-
+import styles from './stilos/home.module.css'
+import Loading from "./loading"
 
 
 
@@ -56,28 +57,44 @@ export default function Home(){
     }    
     function handleFilterSortRating(e){
         dispatch(filterSortRating(e.target.value))
-    }    
- 
-    return <div>
-     <Link to="/videogame">Crear Video Juego</Link>
-     <h1>Video Game</h1>
-     <button onClick={e => {handleClick(e)}}>Volver a cargar videojuegos</button>
+    }
+    
+    return <div className={styles.father}>
+           <div className={styles.home}>
+     <Link to="/">
+         <button>Home</button>
+     </Link>
+        </div>
+        <div className={styles.create}>
+     <Link to="/videogame" classname={styles.lap}>
+         <button>Create your game</button>
+     </Link>
+        </div>
+        <div>
+     <div classname={styles.videogame}>
+     <h1 classname={styles.title}>SEARCH YOUR GAME</h1>
+     </div>
+     </div>
+    
      <div>
          <SearchBar />
          <label> A-Z | Z-A :
          <select onChange={e => handleFilterSort(e)}>
+             <option >Seleccionar</option>
              <option value ={ASCENDENTE}>Ascendente</option>
              <option value={DESCENDENTE}>Descendente</option>
          </select>
          </label>
          <label>Rating :
          <select onChange={e => handleFilterSortRating(e)}>
+             <option>Seleccionar</option>
              <option value ={RATINGMAS}>Rating +</option>
              <option value={RATINGMENOS}>Rating -</option>
          </select>
          </label>
          <label> Genres :
          <select onChange={e => handleFilterByGenre(e)}>
+                    <option >Seleccionar</option>
         {
             genres?.map((el =>{
                 return(
@@ -95,26 +112,45 @@ export default function Home(){
              <option value='api'>Api</option>
             
          </select>
+         <button onClick={e => {handleClick(e)}}>Reload VideoGames</button>
          </label>
+             <Paginado 
+             gamesPerPage={gamesPerPage}
+             allVideogames = {allVideogames.length}
+             paginado = {paginado}
+             />
+         
+         <div classname={styles.prueba}>
+         <div className={styles.cards}>
+           
+         { 
+             allVideogames.length > 0 ?
+             
+             currentGame?.map(el => {
+                 
+                 return(
+                
+                   
+               <Card id={el.id} key={el.id} name={el.name} image={el.background_image} genre={el.genres} /> 
+               )
+               
+           }) :
+           
+           <div>Game not found</div>
+           
+           
+         }
+         </div>
+         </div>
          <Paginado 
          gamesPerPage={gamesPerPage}
          allVideogames = {allVideogames.length}
          paginado = {paginado}
          />
-         <div>
-         {
-            
-           currentGame?.map(el => {
-               
-               return(
-                   
-               <Card id={el.id} key={el.id} name={el.name} image={el.background_image} genre={el.genres} /> 
-               )
-               
-           })
-           
-         }
-         </div>
      </div>
     </div>
-}
+
+    }   
+ 
+    
+

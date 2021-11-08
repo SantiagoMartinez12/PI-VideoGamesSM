@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import styles from "./stilos/detail.module.css"
 
 
 
@@ -31,27 +32,33 @@ export default function GameDetail (){
 
         
     return <div>
-                <div>
-                        <div>
-
+                <div classname={styles.divc}>
+                            <div classname={styles.clase}>
                                 <Link to='/home'>
-                                <h4>Go Back</h4>
+                                <button>Go Back</button>
                                 </Link>
+                            </div>
+                        <div className={styles.conte}>
+
                     {
                         
                         videoGames ? 
                         <> 
-                        <h3>{videoGames?.name}</h3>
-                        <img src={videoGames?.background_image} alt='image' width='600px' height="300px"/>
-                        <p>Description: {videoGames?.description?.replace(/<[^>]*>?/g, "")}</p>
-                        <p>Genres: {videoGames.genres.map(el => el.name).join(", ")}</p>
-                        <p>Platform: {videoGames?.platforms.join(", ")}</p>
-                        <p>Released: {videoGames?.released || "not found"} </p>
-                        <p>Rating: {videoGames?.rating}</p>
+                        <h5 className={styles.names}>{videoGames?.name}</h5>
+                        <conteiner className={styles.contimage}>
+                        <img src={videoGames?.background_image} alt='image'className={styles.image}/>
+                        </conteiner>
+                        <conteiner className={styles.descrip}>
+                        <p className={styles.description}>Description: {videoGames?.description?.replace(/<[^>]*>?/g, "")}</p>
+                        </conteiner>
+                        <p className={styles.genre}>Genres: {videoGames.genres.map(el => el.name).join(", ")}</p>
+                        <p className={styles.platform}>Platform: {videoGames?.platforms.join(", ")}</p>
+                        <p className={styles.released}>Released: {videoGames?.released || "not found"} </p>
+                        <p className={styles.rating}>Rating: {videoGames?.rating}</p>
                         
                         
                         </> :
-                        <div>Loading...</div>
+                        <div className={styles.loading}>Loading...</div>
                         
                     }
                         </div>

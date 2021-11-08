@@ -1,8 +1,128 @@
+
 .selectG[multiple] {
     height: 1.5em;
     vertical-align: top;
   }
-  .selectG[multiple]:focus,
-  .selectG[multiple]:active {
+.selectG[multiple]:focus,
+.selectG[multiple]:active {
     height: auto;
+}
+.page{
+    display: flex;
+    position:fixed
+
   }
+
+
+.tittle{
+   text-align:center;
+ }
+  
+.divCreate {
+    
+    display: flex;
+    flex-direction: column;
+    position:fixed;
+    margin-right: 50%;
+    align-items: left;
+    height:100%;
+    width: 50%;
+    text-align: left;
+
+}
+form{
+  padding-left: 80px;
+  border: solid 1px;
+  padding-bottom: 20px;
+  width: 600px;
+  margin-top: 40px;
+  margin-left:30px;
+}
+
+  .description{
+    padding-top: 30px;
+    padding-right: 50px;
+  }
+ input{
+  
+   
+   width: 200px;
+ }
+  .image{
+   padding-top:30px
+  }
+.rating{
+  padding-top: 30px;
+}
+.released{
+  padding-top: 30px;
+}
+.platforms{
+  padding-top: 30px;
+}
+.genres{
+  padding-top: 30px;
+  padding-bottom: 60px
+}
+.checked{
+padding-left: 100px;
+font-size: 1.2rem;
+}
+
+/*
+.previ{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  margin-left: 50%;
+  height: 100%;
+  width: 50%;
+}
+.previsualizacion{
+  display: flex;
+  border: solid 1px;
+  position: fixed;
+  margin-top: 80px;
+    backdrop-filter: blur(20px);
+    width: 900px;
+    height: 80%;
+}
+.nameprev{
+  margin-top: 100px;
+  position: fixed;
+  margin-left: 400px;
+  font-size: 2rem;
+
+}
+.descriptionprev{
+  display: flex;
+  margin-top: 150px;
+  position: fixed;
+  margin-left: 50px;
+  font-size: 1.3rem;
+  width:300px;
+  height:200px
+}
+.pr{
+  margin-top: 100px;
+  text-align: left;
+  width:300px;
+  height:200px;
+  position: absolute;
+}
+.imagess{
+  position: fixed;
+  margin-top:80px;
+  margin-left:500px;
+  width:300px;
+  height:250px;
+  border:solid 1px ;
+}
+.ratingprev{
+  position: fixed;
+  margin-top: 200px;
+  margin-left:-70px;
+  font-size:1.5rem
+}
+ 
+ */

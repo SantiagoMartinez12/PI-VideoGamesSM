@@ -1,0 +1,91 @@
+.father{
+    
+    margin-top: -40px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    padding-left:40px;
+    padding-top: 40px;
+    padding-right:40px;
+    padding-bottom: 50px;
+    border : solid 1px;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+    border-radius:20px;
+    width: 1100px;
+    margin-left: 280px; 
+    margin-top: 40px;
+}
+.prueba{
+    margin: center;
+}
+h1 {
+    font-size: 2.5rem;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+button{
+    background: transparent;
+    border: solid 1px;
+   color: white;
+   width:200px;
+   height:50px;
+    margin-left: 20px;
+    font-size: 18px;
+    text-decoration: solid;
+}
+button:hover{
+ background-color: white;
+ color: black;
+}
+label{
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+
+.create{
+    
+    width:250px;
+    height:50px;
+   padding-top: 60px;
+    margin-left: 1600px;
+   
+}
+.home{
+    position: fixed;
+    width:250px;
+    height:50px;
+    padding-top: 60px;
+    margin-right: 1600px;
+}
+
+.h4{
+    margin-top: 10px;
+    color: white;
+    font-size: 1.4rem;
+}
+
+a{
+    text-decoration: none;
+}
+label{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 1.5rem; 
+}
+.loading{
+    font-size: 3rem;
+    font-family:Arial, Helvetica, sans-serif;
+    color: white;
+    margin-top: 300px;
+
+
+}

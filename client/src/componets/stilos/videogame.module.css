@@ -10,4 +10,5 @@
     align-content: space-around;
     justify-content: space-between;
     color: beige;
+    backdrop-filter: blur(30px);
 }
