@@ -3,6 +3,8 @@ import {ASCENDENTE,DESCENDENTE, RATINGMAS, RATINGMENOS} from "../../const"
 
 const initialState = {
     videoGames : [],
+    findGame: [],
+
     filterVideoGames : [],
     genreGame : []
 }
@@ -17,10 +19,11 @@ export default function reducer( state = initialState, action) {
                 filterVideoGames:action.payload.data
             }
             case FIND_GAME: 
-            console.log("aqui entre")
+            
                 return {
                 ...state,
                 filterVideoGames:action.payload.data,
+                findGame:action.payload.data
             }
             case GET_GENRES:
                 return {
@@ -32,11 +35,18 @@ export default function reducer( state = initialState, action) {
                     ...state
                 }
             case FILTER_GENRE:
-                const allVideogames = state.videoGames
+                let allVideogames
+                if(state.findGame.length > 0){
+                    allVideogames = state.findGame
+                } else {
+                    allVideogames = state.filterVideoGames
+                }
+                
+                //const allVideogames = state.videoGames
                     // filtro primero el array de objetos, segundo mapeo generos tercero
                     // pregunto si incluye ese genero que traigo por payload... 
                 const filtergenre = allVideogames.filter((el) => el.genres.includes(action.payload)) 
-                console.log(filtergenre)
+                
                 return {    
                         ...state,
                         filterVideoGames: filtergenre
@@ -44,20 +54,27 @@ export default function reducer( state = initialState, action) {
             case FILTER_DB_API:
                 const allVideogames1 = state.videoGames
                 const filterGame = action.payload === "created" ? allVideogames1.filter(el => el.createdInDb) : allVideogames1.filter(el => !el.createdInDb)
-                    console.log(filterGame)
+                    
                 return {
                         ...state,
                         filterVideoGames: action.payload === 'all' ? state.filterVideoGames : filterGame
                     }
 
             case FILTER_SORT:
-                let orderedVG = [...state.videoGames]
+                let orderedVG
+                
+                if(state.findGame.length > 0){
+                    orderedVG = [...state.findGame]
+                } else {
+                    orderedVG = [...state.videoGames]
+                }
+                
 
                 let orderedVideo = orderedVG.sort((a, b) => {
-                    if (a.name < b.name) {
+                    if (a.name[0].toLowerCase() < b.name[0].toLowerCase()) {
                         return action.payload === ASCENDENTE ? -1 : 1;
                     }
-                    if (a.name > b.name) {
+                    if (a.name[0].toLowerCase() > b.name[0].toLowerCase()) {
                         return action.payload === ASCENDENTE ? 1 : -1;
                     }
                     return 0;
@@ -67,17 +84,24 @@ export default function reducer( state = initialState, action) {
                     filterVideoGames: orderedVideo
                 }
                 case FILTER_SORT_RATING:
-                    let orderedVGRating = [...state.videoGames]
+                    let orderedVGRating
+                
+                if(state.findGame.length > 0){
+                    orderedVGRating = [...state.findGame]
+                } else {
+                    orderedVGRating = [...state.videoGames]
+                }
 
                 let orderedVideo1 = orderedVGRating.sort((a, b) => {
                     if (a.rating < b.rating) {
-                        return action.payload === RATINGMAS ? -1 : 1;
+                        return action.payload === RATINGMAS ? 1 : -1;
                     }
                     if (a.rating > b.rating) {
-                        return action.payload === RATINGMAS ? 1 : -1;
+                        return action.payload === RATINGMAS ? -1 : 1;
                     }
                     return 0;
                 })
+                
                 return {
                     ...state,
                     filterVideoGames: orderedVideo1

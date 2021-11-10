@@ -14,10 +14,11 @@
 
 
 .divWel{
+    
+    border: solid 1px;
     display:flex;
     margin-right: 1240px;
     margin-left: 100px;
-    border: solid 1px;
     padding-left: 20px;
  
 }

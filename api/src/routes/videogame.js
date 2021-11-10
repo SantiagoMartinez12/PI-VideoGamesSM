@@ -47,10 +47,9 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
                     releaseDate: e.released,
                     genres: e.genreGames.map((game) => {
                        
-                        return {
-                            name:game.name,
-                            id:game.id
-                        }
+                        return game.name
+                            
+                        
                     }),
                     platforms: e.platform,
                     createdInDb: e.createdInDb || true 
@@ -67,10 +66,9 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
                 rating: e.rating,
                 releaseDate: e.released,
                 genres: e.genres.map((genre) => {
-                    return {
-                        name: genre.name,
-                        id: genre.id,
-                    };
+                    return  genre.name
+                        
+                    
                 }),
                 platforms: e.platforms.map(
                     (el) => el.platform.name
@@ -154,7 +152,7 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
         let allVideogames = [...filtradodb, ...filteredVideoGameApi] //concateno
 
     
-        res.send(allVideogames)
+        res.send(allVideogames).status(200)
     })
     .catch(error => next(error))
 }
@@ -173,7 +171,7 @@ router.get('/:id', async (req, res, next) => {  // ACA BUSCO POR ID (PRIMERO EN 
           );
          
          let videogameData = videogame.dataValues
-         filterData = {
+         let filterData = {
                  name: videogameData.name,
                  id: videogameData.id,
                  background_image: videogameData.background_image,

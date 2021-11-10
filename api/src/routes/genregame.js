@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
     }
 })
 // precargar generos de api en db
-
+/*
 router.post('/', (req, res, next) => {
     const {name} = req.body
     return GenreGame.create({name})
@@ -22,6 +22,7 @@ router.post('/', (req, res, next) => {
     })
     .catch(error => next(error))
 })
+*/
 router.get('/search/:name', async (req, res, next) => {
     
     

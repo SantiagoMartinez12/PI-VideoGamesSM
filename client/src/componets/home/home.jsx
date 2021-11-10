@@ -11,8 +11,8 @@ import {ASCENDENTE,DESCENDENTE,RATINGMAS,RATINGMENOS } from "../../const"
 import styles from './home.module.css'
 
 
-
-
+//  -------     IMAGE NOT FOUND -----------
+//https://m.media-amazon.com/images/I/71FRuuxuaUL._SS500_.jpg
 
 export default function Home(){
   // --------------------traigo generos para options ---------------   
@@ -25,12 +25,14 @@ export default function Home(){
     const dispatch = useDispatch();
   const allVideogames = useSelector((state) => state.filterVideoGames)
   
+ 
   
   const [currentPage,setCurrentPage] = useState(1)
   const [gamesPerPage,setGamesPerPage] = useState(15)
   const indexOfLastGame = currentPage * gamesPerPage 
   const indexOfFirstGame = indexOfLastGame - gamesPerPage
   const currentGame = allVideogames.slice(indexOfFirstGame,indexOfLastGame)
+  
 
   const paginado = (pageNumber) => {
       setCurrentPage(pageNumber)
@@ -65,39 +67,39 @@ export default function Home(){
      </Link>
         </div>
         <div className={styles.create}>
-     <Link to="/videogame" classname={styles.lap}>
+     <Link to="/videogame" className={styles.lap}>
          <button>Create your game</button>
      </Link>
         </div>
         <div>
-     <div classname={styles.videogame}>
-     <h1 classname={styles.title}>SEARCH YOUR GAME</h1>
+     <div className={styles.videogame}>
+     <h1 className={styles.title}>SEARCH YOUR GAME</h1>
      </div>
      </div>
     
      <div>
          <SearchBar />
          <label> A-Z | Z-A :
-         <select onChange={e => handleFilterSort(e)}>
+         <select onChange={e => handleFilterSort(e)} className={styles.selects}>
              <option >Seleccionar</option>
              <option value ={ASCENDENTE}>Ascendente</option>
              <option value={DESCENDENTE}>Descendente</option>
          </select>
          </label>
          <label>Rating :
-         <select onChange={e => handleFilterSortRating(e)}>
+         <select onChange={e => handleFilterSortRating(e)}  className={styles.selects}>
              <option>Seleccionar</option>
              <option value ={RATINGMAS}>Rating +</option>
              <option value={RATINGMENOS}>Rating -</option>
          </select>
          </label>
          <label> Genres :
-         <select onChange={e => handleFilterByGenre(e)}>
+         <select onChange={e => handleFilterByGenre(e)}  className={styles.selects}>
                     <option >Seleccionar</option>
         {
             genres?.map((el =>{
                 return(
-                    <option value={el.name}>{el.name}</option>
+                    <option key={el.name} value={el.name}>{el.name}</option>
                 )
             }))
         }
@@ -105,7 +107,7 @@ export default function Home(){
         </select>
         </label>
         <label> Game DB or API :
-         <select onChange={e => handleFilter(e)}>
+         <select onChange={e => handleFilter(e)}  className={styles.selects}>
              <option value='all'>Todos</option>
              <option value='created'>Creados</option>
              <option value='api'>Api</option>
@@ -119,25 +121,30 @@ export default function Home(){
              paginado = {paginado}
              />
          
-         <div classname={styles.prueba}>
+         <div>
          <div className={styles.cards}>
            
          { 
+            
+            
              allVideogames.length > 0 ?
              
              currentGame?.map(el => {
                  
                  return(
-                
-                   
+
                <Card id={el.id} key={el.id} name={el.name} image={el.background_image} genre={el.genres} /> 
                )
                
-           }) :
+           }) : 
            
-           <div>Game not found</div>
+           <div>
+               Game Not Found
+           </div> 
+
+          
            
-           
+        
          }
          </div>
          </div>

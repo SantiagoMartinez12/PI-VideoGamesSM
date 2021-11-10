@@ -90,3 +90,17 @@ label{
 
 
 }
+.selects{
+    font-family:Arial, Helvetica, sans-serif;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    color: white;
+    width:150px;
+    height: 30px
+}
+option{
+    font-family:Arial, Helvetica, sans-serif;
+    background-color: rgba(0, 0, 0, 0.445);
+    backdrop-filter: blur(20px);
+    color: white;
+}

@@ -1,4 +1,7 @@
 
+#but123 { 
+  background-color:black
+}
 .selectG[multiple] {
     height: 1.5em;
     vertical-align: top;
@@ -7,19 +10,45 @@
 .selectG[multiple]:active {
     height: auto;
 }
+.selectG{
+  margin-left: 15px;
+  margin-top: 5px;
+  width: 140px;
+}
+.selectP[multiple]{
+  height: 1.5em;
+  vertical-align: top;
+}
+.selectP[multiple]:focus,
+.selectP[multiple]:active {
+    height: auto;
+}
+.selectP{
+  margin-left: 15px;
+  margin-top: 5px;
+  width: 100px;
+}
 .page{
     display: flex;
     position:fixed
 
   }
+#prueba1{
+    width: 20px;
+    height: 20px;
+    background-color: black
+  }
+
 
 
 .tittle{
    text-align:center;
  }
-  
+#hola{
+  background-color: white;
+}
 .divCreate {
-    
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     position:fixed;
@@ -60,15 +89,78 @@ form{
 }
 .platforms{
   padding-top: 30px;
+  width:50;
+  height:130px
+}
+.contenedor{
+  display: flex;
 }
 .genres{
   padding-top: 30px;
-  padding-bottom: 60px
+  height:130px
 }
 .checked{
-padding-left: 100px;
+
 font-size: 1.2rem;
 }
+.divplatforms{
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid ;
+  
+}
+.divgenres{
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid 
+}
+.prueba43{
+  background-color: white;
+  width: 10px;
+  height:10px;
+  font-size: 5px;
+  color: red;
+ margin-left: 1px;
+  margin-bottom: 28px;
+}
+
+.divconta{
+  display: flex;
+  flex-direction: row;
+  width: 60px;
+  height: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  padding-left: 0px;
+  align-items: center;
+  border: 1px solid;
+  height: 40px;
+  margin-top: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+  
+}
+.divconta1{
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  height: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  padding-left: 0px;
+  align-items: center;
+  border: 1px solid;
+  height: 40px;
+  margin-top: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+  
+}
+
 
 /*
 .previ{

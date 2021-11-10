@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from "react-router-dom";
-import { getGenres, postVideoGame } from '../../store/actions';
+import { fetchVideoGame, getGenres, postVideoGame } from '../../store/actions';
 import styles from './gameCreate.module.css'
 
 
@@ -20,7 +20,7 @@ export default function GameCreate (){
         rating:"",
         genres:[]
 
-    })
+    }) // controlar plataformas y generos!!! 
     const [errors, setErrors] = useState({})
 
     useEffect (() => {
@@ -85,6 +85,7 @@ export default function GameCreate (){
         }
         function handleSelectionP(e){
             setInput({
+                
                 ...input,
                 platforms : [...input.platforms, e.target.value]
             })
@@ -99,8 +100,10 @@ export default function GameCreate (){
         function handleSubmit(e){
             e.preventDefault()
          
-            console.log(input)
+            
             dispatch(postVideoGame(input))
+            
+
             alert("Videogame created")
             setInput({
                 name: "",
@@ -111,6 +114,7 @@ export default function GameCreate (){
                 rating:"",
                 genres:[]
                     })
+        dispatch(fetchVideoGame())
           history.push("/home")          
         
     }
@@ -118,8 +122,8 @@ export default function GameCreate (){
     return(
         <div className={styles.page}>
             <div className={styles.divCreate}>
-            <Link to="/home"><button classname={styles.button1}>Go Back</button></Link>
-            <form  onSubmit={(e)=>handleSubmit(e)} classname={styles.forms}>
+            <Link to="/home"><button>Go Back</button></Link>
+            <form  onSubmit={(e)=>handleSubmit(e)} >
             <h1 className={styles.tittle}>Create your Video Game</h1>
                 <div>
                     <label>Name:</label>
@@ -180,9 +184,10 @@ export default function GameCreate (){
                     required
                     />
                 </div>
+                <div className={styles.contenedor}>
                 <div className={styles.platforms}>
                     <label>Platforms:
-                        <select className={styles.selectG} multiple onChange={(e) => handleSelectionP(e)} required>
+                        <select className={styles.selectP} multiple onChange={(e) => handleSelectionP(e)} required>
                             <option value="PS5">PS5</option>
                             <option value="PS4">PS4</option>
                             <option value="PS3">PS3</option>
@@ -208,32 +213,44 @@ export default function GameCreate (){
                     </select>
                     </label>
                 </div>
+                </div>
                 <button type="submit" className={styles.sub}>Create Your Game</button>
                 
             <div  className={styles.checked}>
+                <div className={styles.divplatforms}>
                 <h4>platforms selected:</h4>
             {
                 input.platforms.map(el =>
-                    <div>
+                    <div className={styles.divconta}>
                         <p>{el}</p>
-                        <button onClick={(e)=> handleDeletePlat(el)} classname={styles.but1}>X</button>
+                        <button onClick={(e)=> handleDeletePlat(el)} className={styles.prueba43}>X</button>
                         </div>)
             }
+            </div>
+            <div className={styles.divgenres}>
                 <h4>Genres selected:</h4>
             {
             input.genres.map(el => 
-                <div>
+                <div className={styles.divconta1}>
                     <p>{el}</p>
-                    <button onClick={(e)=> handleDelete(el)}backgroundColor="white">X</button>
+                    <button onClick={(e)=> handleDelete(el)} id="but123" className={styles.prueba43}></button>
                 </div>)
             }
+            </div>
                 </div>
+                
             </form>
         </div>
         
-            
         </div>
-           /* 
+            
+        
+
+
+
+)   
+    }
+    /*
         <div className={styles.previ}>
                 <div className={styles.previsualizacion}></div>
                     <div className={styles.nameprev}>{input.name}</div>
@@ -245,8 +262,4 @@ export default function GameCreate (){
                         </div>
 
             </div>
-
-           */
-      
-      )   
-    }
+            */

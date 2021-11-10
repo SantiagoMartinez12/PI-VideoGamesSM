@@ -29,7 +29,9 @@ export function fetchVideoGame() {
         }
 }
 export function searchVideoGame(search) {
+   
     return function(dispatch) {
+        if(!search){return fetchVideoGame()} else {
         console.log(search)
         axios.get('http://localhost:3001/videogame?name=' + search)
         .then((game) => {
@@ -39,8 +41,9 @@ export function searchVideoGame(search) {
             })
         })
         
-}
-}
+    }
+}}
+
 export function postVideoGame(payload){
     return async function(dispatch) {
         const response = await axios.post('http://localhost:3001/videogame', payload)

@@ -9,20 +9,20 @@ import styles from './card.module.css'
 export default function Card ({name, image, genre, id}) {
    
     const filterGenre = genre
-   console.log(genre)
+   
     return (
         <div className={styles.cards}>
         <Link to={`/${id}`} className={styles.link}>
-            <div classname={styles.lele}>
-            <h3 classname={styles.namer}>{name}</h3>
+            <div>
+            <h3 >{name}</h3>
             </div>
-          <div classname={styles.image}>
+          <div>
             <img src={image} alt='image'  />
             </div>
-            <div classname={styles.genre}>
+            <div>
             {
                 filterGenre.map((el => {
-                    return <p>{el?.name || el}</p>
+                    return <p key={el.name}>{el?.name || el}</p>
                 }))
             }
           </div>
