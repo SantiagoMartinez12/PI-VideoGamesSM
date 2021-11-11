@@ -16,7 +16,8 @@ export default function reducer( state = initialState, action) {
             return {
                 ...state,
                 videoGames:action.payload.data,
-                filterVideoGames:action.payload.data
+                filterVideoGames:action.payload.data,
+                findGame:[]
             }
             case FIND_GAME: 
             
@@ -39,7 +40,7 @@ export default function reducer( state = initialState, action) {
                 if(state.findGame.length > 0){
                     allVideogames = state.findGame
                 } else {
-                    allVideogames = state.filterVideoGames
+                    allVideogames = state.videoGames
                 }
                 
                 //const allVideogames = state.videoGames
@@ -57,28 +58,28 @@ export default function reducer( state = initialState, action) {
                     
                 return {
                         ...state,
-                        filterVideoGames: action.payload === 'all' ? state.filterVideoGames : filterGame
+                        filterVideoGames: action.payload === 'all' ? state.videoGames : filterGame
                     }
 
             case FILTER_SORT:
-                let orderedVG
+                let orderedVG = [...state.filterVideoGames]
+                console.log(state.filterVideoGames)
+                console.log(state.findGame)
                 
-                if(state.findGame.length > 0){
-                    orderedVG = [...state.findGame]
-                } else {
-                    orderedVG = [...state.videoGames]
-                }
+                
                 
 
                 let orderedVideo = orderedVG.sort((a, b) => {
-                    if (a.name[0].toLowerCase() < b.name[0].toLowerCase()) {
+                    if (a.name.toLowerCase() < b.name.toLowerCase()) {
                         return action.payload === ASCENDENTE ? -1 : 1;
                     }
-                    if (a.name[0].toLowerCase() > b.name[0].toLowerCase()) {
+                    if (a.name.toLowerCase() > b.name.toLowerCase()) {
                         return action.payload === ASCENDENTE ? 1 : -1;
                     }
                     return 0;
                 })
+
+                console.log(orderedVideo)
                 return {
                     ...state,
                     filterVideoGames: orderedVideo
@@ -89,7 +90,7 @@ export default function reducer( state = initialState, action) {
                 if(state.findGame.length > 0){
                     orderedVGRating = [...state.findGame]
                 } else {
-                    orderedVGRating = [...state.videoGames]
+                    orderedVGRating = [...state.filterVideoGames]
                 }
 
                 let orderedVideo1 = orderedVGRating.sort((a, b) => {
@@ -106,34 +107,7 @@ export default function reducer( state = initialState, action) {
                     ...state,
                     filterVideoGames: orderedVideo1
                 }
-                    
-    
-
-
-                /*
-                let orderVideoGame = [...state.videoGames]
-                let lpm = orderVideoGame.sort((a, b) =>{
-                if(a.name[0].toLowerCase() < b.name[0].toLowerCase()) {
-                    console.log(a.name[0])
-                    return action.payload === 'asc' ? -1 : 1
-                }
-                if(a.name[0].toLowerCase() > b.name[0].toLowerCase()){
-                    return action.payload === 'desc' ? 1 : -1
-                }
-                return 0;
-            })
-            return{
-                ...state,
-                filterVideoGames: lpm
-            }
-        */
-                
-               
-            
-             
-
-
-            
+     
             default:
                 return state
     }

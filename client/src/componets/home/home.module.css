@@ -1,9 +1,9 @@
 .father{
     
-    margin-top: -40px;
+    margin-top: 0px;
     display: flex;
     flex-direction: column;
-    
+    backdrop-filter: blur(5px);
 }
 
 
@@ -15,10 +15,10 @@
     padding-top: 40px;
     padding-right:40px;
     padding-bottom: 50px;
-    border : solid 1px;
+    
     justify-content: space-between;
     backdrop-filter: blur(10px);
-    border-radius:20px;
+    
     width: 1100px;
     margin-left: 340px; 
     margin-top: 40px;
@@ -45,6 +45,7 @@ button{
 button:hover{
  background-color: white;
  color: black;
+ 
 }
 label{
     padding-left: 20px;
@@ -61,12 +62,17 @@ label{
     margin-left: 1600px;
    
 }
+.divsearch{
+    padding-top:50px
+}
 .home{
+    display: flex;
     position: fixed;
-    width:250px;
-    height:50px;
-    padding-top: 60px;
-    margin-right: 1600px;
+    width:98%;
+    height:6%;
+    padding-top: 10px;
+    margin-bottom: 40px;
+    justify-content: space-between;
 }
 
 .h4{
@@ -96,7 +102,13 @@ label{
     backdrop-filter: blur(20px);
     color: white;
     width:150px;
-    height: 30px
+    height: 50px;
+    font-size: 1.2rem
+}
+.selects:hover{
+    background-color:white;
+    color: black;
+    
 }
 option{
     font-family:Arial, Helvetica, sans-serif;

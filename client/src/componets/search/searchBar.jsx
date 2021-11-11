@@ -7,10 +7,10 @@ export default function SearchBar() {
     const [search, setSearch] = useState('')
     let dispatch = useDispatch()
     function onSubmit(e) {
+        e.preventDefault();
         if(!search){
             dispatch(fetchVideoGame())
         } else {
-        e.preventDefault();
         dispatch(searchVideoGame(search))
         
         setSearch("")

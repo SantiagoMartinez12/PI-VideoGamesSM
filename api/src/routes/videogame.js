@@ -115,17 +115,16 @@ router.get('/', async (req, res, next) => {   // ACA BUSCO POR NOMBRE O SIMPLEME
         const filtradodb = filterDb.map((el) => {
             return {
                 id: el.id,
-               name: el.name,
+                name: el.name,
                 background_image: el.background_image,
-               rating: parseFloat(el.rating),
-               releaseDate: el.released,
-               genres: el.genreGames.map((game) => {
-                   return  game.name
-                  
-               }),
-               platforms: el.platform,
-               createdInDb: el.createdInDb || true 
-       };
+                rating: parseFloat(el.rating),
+                releaseDate: el.released,
+                genres: el.genreGames.map((game) => {
+                   return  game.name 
+                }),
+                platforms: el.platform,
+                createdInDb: el.createdInDb || true 
+            };
         })
        
         let filteredVideoGameApi = arraydata.map((e) => {
@@ -258,7 +257,7 @@ router.post('/', async (req, res, next) => {      // creo videojuego y cargo id 
   
     
 });
-// 977matias15:51
+
 //const createdInDb = videogame.includes('-)
 //('-')
 

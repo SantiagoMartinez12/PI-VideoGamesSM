@@ -13,19 +13,19 @@ export default function Card ({name, image, genre, id}) {
     return (
         <div className={styles.cards}>
         <Link to={`/${id}`} className={styles.link}>
-            <div>
-            <h3 >{name}</h3>
-            </div>
-          <div>
+            
             <img src={image} alt='image'  />
-            </div>
-            <div>
+            <h3 >{name}</h3>
+            
+            
+            
+            
             {
                 filterGenre.map((el => {
                     return <p key={el.name}>{el?.name || el}</p>
                 }))
             }
-          </div>
+          
         </Link>
     </div>
     )

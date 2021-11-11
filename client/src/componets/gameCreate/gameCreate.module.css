@@ -13,7 +13,13 @@
 .selectG{
   margin-left: 15px;
   margin-top: 5px;
+  height:40px;
   width: 140px;
+  color: white;
+  font-size:1rem;
+  font-family:Arial, Helvetica, sans-serif;
+  background-color:transparent;
+  backdrop-filter: blur(10px);
 }
 .selectP[multiple]{
   height: 1.5em;
@@ -27,6 +33,11 @@
   margin-left: 15px;
   margin-top: 5px;
   width: 100px;
+  color: white;
+  font-size:1rem;
+  font-family:Arial, Helvetica, sans-serif;
+  background-color:transparent;
+  backdrop-filter: blur(10px);
 }
 .page{
     display: flex;
@@ -39,7 +50,15 @@
     background-color: black
   }
 
-
+.inputpru{
+  background-color: transparent;
+  backdrop-filter: blur(20px);
+  color: white;
+  border: solid 1px;
+  height: 35px;
+  width: 300px;
+  padding-left: 20px;
+}
 
 .tittle{
    text-align:center;
@@ -66,13 +85,19 @@ form{
   width: 600px;
   margin-top: 40px;
   margin-left:30px;
+  backdrop-filter: blur(10px);
 }
 
   .description{
-    padding-top: 30px;
-    padding-right: 50px;}
+    padding-top: 20px;
+    padding-right: 50px;
+    text-align: left
+  }
 
-  
+.sub{
+  margin-left: 170px;
+    margin-bottom: 20px;
+}  
  input{
   
    
@@ -183,8 +208,9 @@ font-size: 1.2rem;
 .nameprev{
   margin-top: 100px;
   position: fixed;
-  margin-left: 400px;
+  margin-left: 350px;
   font-size: 2rem;
+    text-align: center;
 
 }
 .descriptionprev{
@@ -217,5 +243,5 @@ font-size: 1.2rem;
   margin-left:-70px;
   font-size:1.5rem
 }
- 
  */
+ 

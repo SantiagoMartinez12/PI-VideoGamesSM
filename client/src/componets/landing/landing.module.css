@@ -1,6 +1,9 @@
 .lareputamadre{
     text-decoration: none;
 }
+.tittle{
+    position: ;
+}
 .h1{
     font-size: 3rem;
     color: white;
@@ -11,15 +14,40 @@
     text-decoration: none;
     
 }
-
+.pruebas{
+    position: fixed;
+    background-color:transparent;
+    background-image:url(../../Boton.png);
+    background-size:cover;
+    background-position: top center;
+    width:420px; 
+    height: 310px;
+    border: none;
+    left: 100px;
+    top:150px;
+    
+    
+}
+.pruebas:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1)
+}
+.pruebas:hover{
+    background-color: transparent;
+    
+    background: repeating-linear-gradient(12px);
+    cursor: pointer;
+}
 
 .divWel{
     
-    border: solid 1px;
+    border:none;
     display:flex;
     margin-right: 1240px;
     margin-left: 100px;
     padding-left: 20px;
+    height:220px;
+    width: 420px;
  
 }
 .divWel:hover{
@@ -42,12 +70,12 @@ a:hover{
     width: 100%;
     position: fixed;
 }
-.prest{
-    margin-left: 60%;
-    margin-top:25%;
-}
-.prest p{
-    font-size: 1.5rem;
 
-    font-family:Arial, Helvetica, sans-serif;
+.prest{
+    font-size: 1.7rem;
+    margin-top: 550px;
+    margin-left: 510px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: fixed;
+    width: 400px;
 }

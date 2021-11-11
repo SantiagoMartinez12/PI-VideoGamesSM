@@ -42,18 +42,18 @@ export default function GameCreate (){
         function validate (input){
             let errors = {};
           if(!input.name) {
-              errors.name = "Require Name"
+              errors.name = "  Require Name"
           }
           else if (!input.description){
               errors.description = "Require Description"
           }
           else if(input.rating < 0 || input.rating > 5)
-          errors.rating = "Rating from 0 to 5 "
+          errors.rating = "  Rating from 0 to 5 "
           else if (!input.platforms){
-            errors.platforms = "Require at least one platform"
+            errors.platforms = "  Require at least one platform"
         }
         else if (!input.genres){
-            errors.genres = "Require at least one genre"
+            errors.genres = "  Require at least one genre"
         }
 
           return errors
@@ -133,6 +133,7 @@ export default function GameCreate (){
                         name="name"
                         onChange={(e)=>handleChange(e)}
                         required
+                        className={styles.inputpru}
                         />{errors.name && (<p>{errors.name}</p>)}
                 </div>
                 <div className={styles.description}>
@@ -144,6 +145,7 @@ export default function GameCreate (){
                         value={input.description}
                         name="description" 
                         onChange={(e)=>handleChange(e)}
+                        className={styles.inputpru}
                         required
                         />
                         {errors.description && (
@@ -158,6 +160,7 @@ export default function GameCreate (){
                     name="background_image" 
                     onChange={(e)=>handleChange(e)}
                     required
+                    className={styles.inputpru}
                     />
                 </div>
                 <div className={styles.rating}>
@@ -170,6 +173,7 @@ export default function GameCreate (){
                     min={0.1}
                     max={5}
                     onChange={(e)=>handleChange(e)}
+                    className={styles.inputpru}
                     required
                     />  {errors.rating && (
                         <p>{errors.rating}</p>
@@ -182,6 +186,7 @@ export default function GameCreate (){
                     name="released"
                     onChange={(e)=>handleChange(e)}
                     required
+                    className={styles.inputpru}
                     />
                 </div>
                 <div className={styles.contenedor}>
@@ -214,7 +219,7 @@ export default function GameCreate (){
                     </label>
                 </div>
                 </div>
-                <button type="submit" className={styles.sub}>Create Your Game</button>
+                <button type="submit" className={styles.sub}>Create</button>
                 
             <div  className={styles.checked}>
                 <div className={styles.divplatforms}>
@@ -250,7 +255,8 @@ export default function GameCreate (){
 
 )   
     }
-    /*
+    
+          /*  
         <div className={styles.previ}>
                 <div className={styles.previsualizacion}></div>
                     <div className={styles.nameprev}>{input.name}</div>

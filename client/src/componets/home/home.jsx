@@ -15,18 +15,19 @@ import styles from './home.module.css'
 //https://m.media-amazon.com/images/I/71FRuuxuaUL._SS500_.jpg
 
 export default function Home(){
+    
   // --------------------traigo generos para options ---------------   
     const genres = useSelector((state) => state.genreGame)
     useEffect (() => {
     dispatch(getGenres() );
     },[])
 
-    //--------------PAGINADO---------------------------------
+    //--------------traigo mi estado a renderizar---------------------------------
     const dispatch = useDispatch();
   const allVideogames = useSelector((state) => state.filterVideoGames)
   
  
-  
+  //------paginado.....
   const [currentPage,setCurrentPage] = useState(1)
   const [gamesPerPage,setGamesPerPage] = useState(15)
   const indexOfLastGame = currentPage * gamesPerPage 
@@ -48,6 +49,7 @@ export default function Home(){
     function handleFilterByGenre(e){
         
         dispatch(filterGenre(e.target.value))
+
         }
     function handleFilter(e){
             dispatch(filterGameAPIorDB(e.target.value))
@@ -59,43 +61,42 @@ export default function Home(){
     function handleFilterSortRating(e){
         dispatch(filterSortRating(e.target.value))
     }
+    // renderizo
     
     return <div className={styles.father}>
-           <div className={styles.home}>
+          <div className={styles.home}>
      <Link to="/">
          <button>Home</button>
      </Link>
-        </div>
-        <div className={styles.create}>
+     <h1 className={styles.title}>SEARCH YOUR GAME</h1>
+    
      <Link to="/videogame" className={styles.lap}>
          <button>Create your game</button>
      </Link>
-        </div>
-        <div>
-     <div className={styles.videogame}>
-     <h1 className={styles.title}>SEARCH YOUR GAME</h1>
-     </div>
+       
      </div>
     
      <div>
+         <div className={styles.divsearch}>
          <SearchBar />
+         </div>
          <label> A-Z | Z-A :
          <select onChange={e => handleFilterSort(e)} className={styles.selects}>
-             <option >Seleccionar</option>
-             <option value ={ASCENDENTE}>Ascendente</option>
-             <option value={DESCENDENTE}>Descendente</option>
+             <option >Select</option>
+             <option value ={ASCENDENTE}>A-Z</option>
+             <option value={DESCENDENTE}>Z-A</option>
          </select>
          </label>
          <label>Rating :
          <select onChange={e => handleFilterSortRating(e)}  className={styles.selects}>
-             <option>Seleccionar</option>
+             <option>Select</option>
              <option value ={RATINGMAS}>Rating +</option>
              <option value={RATINGMENOS}>Rating -</option>
          </select>
          </label>
          <label> Genres :
          <select onChange={e => handleFilterByGenre(e)}  className={styles.selects}>
-                    <option >Seleccionar</option>
+                    <option >Select</option>
         {
             genres?.map((el =>{
                 return(
@@ -108,10 +109,9 @@ export default function Home(){
         </label>
         <label> Game DB or API :
          <select onChange={e => handleFilter(e)}  className={styles.selects}>
-             <option value='all'>Todos</option>
-             <option value='created'>Creados</option>
+             <option value='all'>All</option>
+             <option value='created'>Created</option>
              <option value='api'>Api</option>
-            
          </select>
          <button onClick={e => {handleClick(e)}}>Reload VideoGames</button>
          </label>

@@ -7,26 +7,23 @@ export default function LandingPage(){
         textDecoration:"none"
     }
     return <div className={styles.divs}>
-        <div className={"style.divWel"}>
+        <div className={styles.tittle}>
        <h1 className={styles.h1}> SEARCH YOUR FAVORITE GAME </h1>
-     
        </div>
-       <div className={styles.divWel}>
+       
            
        <Link to="/home" styles={style}>
-           <h1>START SEARCH</h1>
+       <button className={styles.pruebas}></button>
        </Link>
        
 
-    </div>
-
-    <div className={styles.prest}>
-        <p>Individual Proyect</p>
+    
+    
+    
+        <p className={styles.prest}>Individual <br/><br/> Proyect <br/> <br/> Santiago Martinez</p>
         
-        <br />
-        <br />
-        <p>Santiago Martinez</p>
-    </div>
+        
+    
     
     </div>
 }
