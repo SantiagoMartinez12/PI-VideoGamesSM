@@ -3,7 +3,7 @@ import React from "react"
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import {fetchVideoGame , getGenres, filterGenre, filterGameAPIorDB, filterSort, filterSortRating} from '../../store/actions/index'
+import {fetchVideoGame , getGenres, filterGenre, filterGameAPIorDB, filterSort, filterSortRating, filterPlat} from '../../store/actions/index'
 import  Card from '../card/card'
 import Paginado from "../paginado/paginado"
 import SearchBar from "../search/searchBar"
@@ -51,6 +51,9 @@ export default function Home(){
         dispatch(filterGenre(e.target.value))
 
         }
+    function handleFilterPlatforms(e){
+        dispatch(filterPlat(e.target.value))
+    }
     function handleFilter(e){
             dispatch(filterGameAPIorDB(e.target.value))
         }
@@ -94,9 +97,15 @@ export default function Home(){
              <option value={RATINGMENOS}>Rating -</option>
          </select>
          </label>
+         <label>Platforms:
+             <select onChange={e => handleFilterPlatforms(e)}>
+                 <option value="PlayStation 4">PlayStation4</option>
+                 <option value="PlayStation 5">PlayStation5</option>
+                 </select>
+             </label>
          <label> Genres :
          <select onChange={e => handleFilterByGenre(e)}  className={styles.selects}>
-                    <option >Select</option>
+                    <option value="all">All</option>
         {
             genres?.map((el =>{
                 return(
@@ -113,8 +122,8 @@ export default function Home(){
              <option value='created'>Created</option>
              <option value='api'>Api</option>
          </select>
-         <button onClick={e => {handleClick(e)}}>Reload VideoGames</button>
          </label>
+         <button onClick={e => {handleClick(e)}}>Reload VideoGames</button>
              <Paginado 
              gamesPerPage={gamesPerPage}
              allVideogames = {allVideogames.length}
@@ -138,7 +147,7 @@ export default function Home(){
                
            }) : 
            
-           <div>
+           <div className={styles.error}>
                Game Not Found
            </div> 
 
@@ -148,11 +157,13 @@ export default function Home(){
          }
          </div>
          </div>
+         <div className={styles.pagidown}>
          <Paginado 
          gamesPerPage={gamesPerPage}
          allVideogames = {allVideogames.length}
          paginado = {paginado}
          />
+         </div>
      </div>
     </div>
 

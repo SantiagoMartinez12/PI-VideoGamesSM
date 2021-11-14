@@ -26,6 +26,15 @@ export default function reducer( state = initialState, action) {
                 filterVideoGames:action.payload.data,
                 findGame:action.payload.data
             }
+            case 'FILTER_PLATS':
+                const allVideo = state.videoGames
+
+                const filter = allVideo.filter((el => el.platforms?.includes(action.payload)))
+            return {
+                ...state,
+                filterVideoGames: filter
+            }
+
             case GET_GENRES:
                 return {
                 ...state,
@@ -50,8 +59,9 @@ export default function reducer( state = initialState, action) {
                 
                 return {    
                         ...state,
-                        filterVideoGames: filtergenre
+                        filterVideoGames: action.payload === 'all' ? state.videoGames : filtergenre
                 }
+            
             case FILTER_DB_API:
                 const allVideogames1 = state.videoGames
                 const filterGame = action.payload === "created" ? allVideogames1.filter(el => el.createdInDb) : allVideogames1.filter(el => !el.createdInDb)

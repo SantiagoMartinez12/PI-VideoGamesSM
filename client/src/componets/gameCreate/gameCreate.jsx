@@ -238,7 +238,7 @@ export default function GameCreate (){
             input.genres.map(el => 
                 <div className={styles.divconta1}>
                     <p>{el}</p>
-                    <button onClick={(e)=> handleDelete(el)} id="but123" className={styles.prueba43}></button>
+                    <button onClick={(e)=> handleDelete(el)} id="but123" className={styles.prueba43}>x</button>
                 </div>)
             }
             </div>

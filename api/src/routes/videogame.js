@@ -258,28 +258,5 @@ router.post('/', async (req, res, next) => {      // creo videojuego y cargo id 
     
 });
 
-//const createdInDb = videogame.includes('-)
-//('-')
-
-
-// pirmero crear ruta para buscar por id 
-/*
-router.get('/', (req, res, next) => {
-    return Videogame.findAll()
-    .then((videogame) => {
-        res.send(videogame)
-    })
-    .catch((err) => {next(error)})
-    
-});
-
-router.put('/', (req, res, next) => {
-    res.send('soy put /videogame')
-});
-
-router.delete('/', (req, res, next) => {
-    res.send('soy delete /videogame')
-});
-*/
 
 module.exports = router;

@@ -23,24 +23,7 @@ router.post('/', (req, res, next) => {
     .catch(error => next(error))
 })
 */
-router.get('/search/:name', async (req, res, next) => {
-    
-    
-    try {
-   
-    const genero = req.params.name
-    
-    generoFiltrado = await GenreGame.findByPk(genero)({
-    include: Videogame
-    })
-    res.send(generoFiltrado)
-  
 
-}catch(error) {
-    next(error)
-}
-
-})
 
 
 

@@ -140,13 +140,19 @@ font-size: 1.2rem;
   border-top: 1px solid 
 }
 .prueba43{
-  background-color: white;
+  
   width: 10px;
   height:10px;
-  font-size: 5px;
+  font-size: 20px;
   color: red;
  margin-left: 1px;
   margin-bottom: 28px;
+  border: none;
+  margin-right: 8px
+}
+.prueba43:hover{
+  background-color:transparent;
+  color:white;
 }
 
 .divconta{
